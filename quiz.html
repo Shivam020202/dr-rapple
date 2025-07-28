@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Know your skin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/favicon.png">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nouislider.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/splide.css">
+    <link rel="stylesheet" href="assets/css/odometer.css">
+    <link rel="stylesheet" href="assets/css/font-awesome-pro.css">
+    <link rel="stylesheet" href="assets/css/spacing.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #8B6F47;
+            background: linear-gradient(135deg, #FAF7F2 0%, #F5E6D3 50%, #E8D4C4 100%);
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 40px;
+            background-color: #E8D4C4;
+            height: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #A67C5A, #8B6F47);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6B4C3A;
+            font-size: 1.1rem;
+        }
+
+        /* Quiz Steps */
+        .quiz-step {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px solid #E8D4C4;
+            box-shadow: 0 10px 30px rgba(107, 76, 58, 0.1);
+        }
+
+        .quiz-step.active {
+            display: block;
+        }
+
+        .quiz-step h2 {
+            font-size: 2.5rem;
+            color: #6B4C3A;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .quiz-step h3 {
+            font-size: 1.8rem;
+            color: #8B6F47;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .concern-image {
+            width: 90%;
+            height: 400px;
+            padding: 10px;
+            margin: 0 auto 40px;
+            border: 3px solid #E8D4C4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F5E6D3;
+        }
+
+        .concern-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(20%) saturate(1.1);
+        }
+
+        .quiz-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-option {
+            padding: 15px 35px;
+            background-color: #F5E6D3;
+            border: 2px solid #E8D4C4;
+            color: #8B6F47;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .quiz-option:hover {
+            background-color: #E8D4C4;
+        }
+
+        .quiz-option.selected {
+            background-color: #A67C5A;
+            color: #FAF7F2;
+            border-color: #A67C5A;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background-color: #A67C5A;
+            color: #FAF7F2;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: #8B6F47;
+        }
+
+        .nav-btn:disabled {
+            background-color: #E8D4C4;
+            cursor: not-allowed;
+        }
+
+        /* Results Section */
+        .results-section {
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .results-section h2 {
+            color: #6B4C3A;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .recommended-treatments {
+            background-color: #F5E6D3;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 4px solid #A67C5A;
+        }
+
+        .recommended-treatments h3 {
+            color: #6B4C3A;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .treatment-list {
+            color: #8B6F47;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Form Section */
+        .appointment-form {
+            background-color: #FAF7F2;
+            padding: 40px;
+            border: 1px solid #E8D4C4;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #6B4C3A;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E8D4C4;
+            background-color: #FAF7F2;
+            color: #8B6F47;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #A67C5A;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #A67C5A;
+            color: #FAF7F2;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #8B6F47;
+        }
+
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .thank-you h2 {
+            color: #6B4C3A;
+            margin-bottom: 20px;
+        }
+
+        .thank-you p {
+            font-size: 1.2rem;
+            color: #8B6F47;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 20px 15px;
+            }
+
+            .quiz-step {
+                padding: 40px 20px;
+            }
+
+            .quiz-step h2 {
+                font-size: 2rem;
+            }
+
+            .quiz-step h3 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quiz-option {
+                width: 200px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- pre loader area start -->
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="object" id="object_one"></div>
+                <div class="object" id="object_two" style="left:20px;"></div>
+                <div class="object" id="object_three" style="left:40px;"></div>
+                <div class="object" id="object_four" style="left:60px;"></div>
+                <div class="object" id="object_five" style="left:80px;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- pre loader area end -->
+
+    <!-- back to top start -->
+    <div class="back-to-top-wrapper">
+        <button id="back_to_top" type="button" class="back-to-top-btn">
+            <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 6L6 1L1 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+    <!-- back to top end -->
+
+    <!-- header area start -->
+    <header>
+        <div class="header__area header-1 theme-bg tp-header-height">
+            <div class="header__bottom-wrap theme-bg" id="header-sticky">
+                <div class="nav-container">
+                    <div class="row align-items-center">
+                        <div class="col-xxl-3 col-xl-2 col-lg-6 col-md-4 col-6">
+                            <div class="w-75">
+                                <a href="index.html">
+                                    <img src="assets/img/logo/main.png" alt="logo">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-7 d-none d-xl-block">
+                            <div class="main-menu  menu-position">
+                                <nav id="mobile-menu" class="tp-main-menu-content">
+                                    <ul>
+                                        <li class="has-dropdown">
+                                            <a href="index.html">Home</a>
+                                            <div class="tp-submenu has-homemenu">
+                                                <div class="row gx-6 row-cols-1 row-cols-md-2 row-cols-xl-4">
+                                                    <div class="col homemenu active">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-1.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-2.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-2.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-3.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-3.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-4.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-4.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-5.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-5.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-6.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-6.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb">
+                                                            <img src="assets/img/menu/home-7.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn">
+                                                            <a class="menu-btn" href="index-7.html">View Demo</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col homemenu">
+                                                        <div class="homemenu-thumb comming-demo">
+                                                            <img src="assets/img/menu/home-7.jpg" alt="">
+                                                        </div>
+                                                        <div class="homemenu-btn comming-btn">
+                                                            <a class="menu-btn" href="comming-soon.html">Up Comming</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="no-dropdown">
+                                            <a href="about.html">About</a>
+                                        </li>
+                                        <li class="has-dropdown">
+                                            <a href="#">Services</a>
+                                            <ul class="tp-submenu">
+                                                <li><a href="#">Skin Diseases</a></li>
+                                                <li><a href="#">Hair Problems</a></li>
+                                                <li class="has-dropdown">
+                                                    <a href="#"><i class="fas fa-plus"
+                                                            style="margin-right: 4px;"></i>Facial
+                                                        Rejuvenation</a>
+                                                    <ul class="tp-submenu">
+                                                        <li><a href="#">Botox</a></li>
+                                                        <li><a href="#">Fillers</a></li>
+                                                        <li><a href="#">Chemical Peels</a></li>
+                                                        <li><a href="#">Threads</a></li>
+                                                        <li><a href="#">Microneedling</a></li>
+                                                        <li><a href="#">PRP</a></li>
+                                                        <li><a href="#">Laser Resurfacing</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="has-dropdown">
+                                                    <a href="#"><i class="fas fa-plus"
+                                                            style="margin-right: 4px;"></i>Chemical
+                                                        Peels</a>
+                                                    <ul class="tp-submenu">
+                                                        <li><a href="#">Skin Texture</a></li>
+                                                        <li><a href="#">Pigmentation</a></li>
+                                                        <li><a href="#">Acne Scars</a></li>
+                                                        <li><a href="#">Sun Damage Repair</a></li>
+                                                        <li><a href="#">Skin Brightening</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">PRP Hair</a></li>
+                                                <li><a href="#">Vampire Facial</a></li>
+                                                <li><a href="#">Beauty Drips</a></li>
+                                                <li><a href="#">Minor Procedures</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="has-dropdown">
+                                            <a href="shop.html">Shop</a>
+                                            <ul class="tp-submenu">
+                                                <li><a href="shop.html">Shop</a></li>
+                                                <li><a href="shop-details.html">Shop Details</a></li>
+                                                <li><a href="cart.html">Cart</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="order.html">Order</a></li>
+                                                <li><a href="login.html">Log In</a></li>
+                                                <li><a href="register.html">Register</a></li>
+                                                <li><a href="forgot.html">Reset Password</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="no-dropdown">
+                                            <a href="contact.html">Contact</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-8 col-6">
+                            <div class="header__bottom-right d-flex justify-content-end align-items-center">
+                                <div class="d-none d-md-block">
+                                    <div class="header__right d-flex justify-content-end align-items-center">
+                                        <!-- <div class="header__search tp-search-toggle">
+                                     <i>
+                                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                           xmlns="http://www.w3.org/2000/svg">
+                                           <path
+                                              d="M10.5 20C15.7467 20 20 15.7467 20 10.5C20 5.25329 15.7467 1 10.5 1C5.25329 1 1 5.25329 1 10.5C1 15.7467 5.25329 20 10.5 20Z"
+                                              stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                           <path d="M21 21L19 19" stroke="currentColor" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                     </i>
+                                  </div> -->
+                                        <div class="header__phone">
+                                            <a href="tel:0123456789">
+                                                <i>
+                                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M20.97 17.33C20.97 17.69 20.89 18.06 20.72 18.42C20.55 18.78 20.33 19.12 20.04 19.44C19.55 19.98 19.01 20.37 18.4 20.62C17.8 20.87 17.15 21 16.45 21C15.43 21 14.34 20.76 13.19 20.27C12.04 19.78 10.89 19.12 9.75 18.29C8.6 17.45 7.51 16.52 6.47 15.49C5.44 14.45 4.51 13.36 3.68 12.22C2.86 11.08 2.2 9.94 1.72 8.81C1.24 7.67 1 6.58 1 5.54C1 4.86 1.12 4.21 1.36 3.61C1.6 3 1.98 2.44 2.51 1.94C3.15 1.31 3.85 1 4.59 1C4.87 1 5.15 1.06 5.4 1.18C5.66 1.3 5.89 1.48 6.07 1.74L8.39 5.01C8.57 5.26 8.7 5.49 8.79 5.71C8.88 5.92 8.93 6.13 8.93 6.32C8.93 6.56 8.86 6.8 8.72 7.03C8.59 7.26 8.4 7.5 8.16 7.74L7.4 8.53C7.29 8.64 7.24 8.77 7.24 8.93C7.24 9.01 7.25 9.08 7.27 9.16C7.3 9.24 7.33 9.3 7.35 9.36C7.53 9.69 7.84 10.12 8.28 10.64C8.73 11.16 9.21 11.69 9.73 12.22C10.27 12.75 10.79 13.24 11.32 13.69C11.84 14.13 12.27 14.43 12.61 14.61C12.66 14.63 12.72 14.66 12.79 14.69C12.87 14.72 12.95 14.73 13.04 14.73C13.21 14.73 13.34 14.67 13.45 14.56L14.21 13.81C14.46 13.56 14.7 13.37 14.93 13.25C15.16 13.11 15.39 13.04 15.64 13.04C15.83 13.04 16.03 13.08 16.25 13.17C16.47 13.26 16.7 13.39 16.95 13.56L20.26 15.91C20.52 16.09 20.7 16.3 20.81 16.55C20.91 16.8 20.97 17.05 20.97 17.33Z"
+                                                            stroke="black" stroke-width="2" stroke-miterlimit="10" />
+                                                        <path
+                                                            d="M17.5 8C17.5 7.4 17.03 6.48 16.33 5.73C15.69 5.04 14.84 4.5 14 4.5"
+                                                            stroke="black" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path d="M21 8C21 4.13 17.87 1 14 1" stroke="black"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg>
+                                                </i>
+                                            </a>
+                                        </div>
+                                        <div class="header__contact no-dropdown">
+                                            <span class="no-dropdown">Call Us Now</span>
+                                            <a href="tel:0123456789">(839) 367 025</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="offcanvas-btn d-xl-none ml-20">
+                                    <button class="offcanvas-open-btn"><i class="fa-solid fa-bars"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header area end -->
+
+    <!-- offcanvas area start -->
+    <div class="offcanvas__area">
+        <div class="offcanvas__wrapper">
+            <div class="offcanvas__close">
+                <button class="offcanvas__close-btn offcanvas-close-btn">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <div class="offcanvas__content">
+                <div class="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
+                    <div class="offcanvas__logo logo">
+                        <a href="index.html">
+                            <img src="assets/img/logo/logo.png" alt="logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="tp-main-menu-mobile"></div>
+                <div class="offcanvas__btn">
+                    <a href="contact.html" class="tp-btn-offcanvas">Getting Started <i
+                            class="fa-regular fa-chevron-right"></i></a>
+                </div>
+                <div class="side-info-contact">
+                    <span>we are here</span>
+                    <p>1489 Langley Ave <br> Grand Forks Afb, North.</p>
+                </div>
+                <div class="side-info-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-overlay"></div>
+    <!-- offcanvas area end -->
+
+
+
+
+    <div class="quiz-container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="step-indicator" id="stepIndicator">Step 1 of 7</div>
+
+        <!-- Form Element (encompasses entire quiz) -->
+        <form id="skinQuizForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+            <!-- Welcome Step -->
+            <div class="quiz-step active" id="step0">
+                <h2>Discover Your Perfect Skin Treatment</h2>
+                <div class="concern-image">
+                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Skin Care">
+                </div>
+                <p style="font-size: 1.2rem; margin-bottom: 40px; color: #8B6F47; line-height: 1.6;">
+                    Take our personalized quiz to understand your skin's unique needs and discover the most suitable
+                    treatments for your concerns.
+                </p>
+                <div class="nav-buttons">
+                    <div></div>
+                    <button type="button" class="nav-btn" onclick="nextStep()">Start Quiz</button>
+                </div>
+            </div>
+
+            <!-- Question 1: Acne -->
+            <div class="quiz-step" id="step1">
+                <h3>Do you experience frequent acne breakouts?</h3>
+                <div class="concern-image">
+                    <img src="https://images.unsplash.com/photo-1660646463659-df77c1580723?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Acne Concerns">
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'yes')">Yes</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'maybe')">Maybe</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'no')">No</div>
+                </div>
+                <input type="hidden" name="acne_concern" id="acne_concern" value="">
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep()" disabled id="next1">Next</button>
+                </div>
+            </div>
+
+            <!-- Question 2: Pigmentation -->
+            <div class="quiz-step" id="step2">
+                <h3>Do you have dark spots, pigmentation, or uneven skin tone?</h3>
+                <div class="concern-image">
+                    <img src="https://plus.unsplash.com/premium_photo-1664203068177-2641a2a55a4e?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Pigmentation Issues">
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'yes')">Yes</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'maybe')">Maybe</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'no')">No</div>
+                </div>
+                <input type="hidden" name="pigmentation_concern" id="pigmentation_concern" value="">
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep()" disabled id="next2">Next</button>
+                </div>
+            </div>
+
+            <!-- Question 3: Aging -->
+            <div class="quiz-step" id="step3">
+                <h3>Are you concerned about fine lines, wrinkles, or signs of aging?</h3>
+                <div class="concern-image">
+                    <img src="https://images.pexels.com/photos/7581587/pexels-photo-7581587.jpeg" alt="Aging Concerns">
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'yes')">Yes</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'maybe')">Maybe</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'no')">No</div>
+                </div>
+                <input type="hidden" name="aging_concern" id="aging_concern" value="">
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep()" disabled id="next3">Next</button>
+                </div>
+            </div>
+
+            <!-- Question 4: Sensitivity -->
+            <div class="quiz-step" id="step4">
+                <h3>Does your skin feel sensitive or react easily to products?</h3>
+                <div class="concern-image">
+                    <img src="https://images.pexels.com/photos/6643063/pexels-photo-6643063.jpeg" alt="Sensitive Skin">
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'yes')">Yes</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'maybe')">Maybe</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'no')">No</div>
+                </div>
+                <input type="hidden" name="sensitivity_concern" id="sensitivity_concern" value="">
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep()" disabled id="next4">Next</button>
+                </div>
+            </div>
+
+            <!-- Question 5: Dryness -->
+            <div class="quiz-step" id="step5">
+                <h3>Do you struggle with dry or dull-looking skin?</h3>
+                <div class="concern-image">
+                    <img src="https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/cdn.shopify.com/s/files/1/0410/9608/5665/t/3/assets/pf-28c41d03--Copy-of-Merry-Christmas-A-Happy-New-Year-8.jpg?v=1600449281"
+                        alt="Dry Skin">
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'yes')">Yes</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'maybe')">Maybe</div>
+                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'no')">No</div>
+                </div>
+                <input type="hidden" name="dryness_concern" id="dryness_concern" value="">
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <button type="button" class="nav-btn" onclick="nextStep()" disabled id="next5">Next</button>
+                </div>
+            </div>
+
+            <!-- Results & Appointment Form -->
+            <div class="quiz-step results-section" id="step6">
+                <h2>Your Personalized Treatment Recommendations</h2>
+
+                <div class="recommended-treatments">
+                    <h3>Based on your responses, we recommend:</h3>
+                    <div class="treatment-list" id="treatmentRecommendations"></div>
+                </div>
+
+                <div class="appointment-form">
+                    <h3 style="color: #6B4C3A; margin-bottom: 30px; text-align: center;">Book Your Consultation</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="last_name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferredDate">Preferred Date</label>
+                            <input type="date" id="preferredDate" name="preferred_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="preferredTime">Preferred Time</label>
+                            <select id="preferredTime" name="preferred_time">
+                                <option value="">Select Time</option>
+                                <option value="9:00 AM">9:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="12:00 PM">12:00 PM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                                <option value="4:00 PM">4:00 PM</option>
+                                <option value="5:00 PM">5:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalConcerns">Additional Concerns or Questions</label>
+                        <textarea id="additionalConcerns" name="additional_concerns" rows="4"
+                            placeholder="Please share any specific concerns or questions you'd like to discuss..."></textarea>
+                    </div>
+
+                    <!-- Hidden field for recommendations -->
+                    <input type="hidden" name="recommended_treatments" id="recommendedTreatmentsField" value="">
+
+                    <button type="submit" class="submit-btn">Book My Consultation</button>
+                </div>
+
+                <div class="nav-buttons" style="margin-top: 30px;">
+                    <button type="button" class="nav-btn" onclick="prevStep()">Previous</button>
+                    <div></div>
+                </div>
+            </div>
+
+            <!-- Thank You Step -->
+            <div class="quiz-step thank-you" id="step7">
+                <h2>Thank You!</h2>
+                <div class="concern-image">
+                    <img src="https://via.placeholder.com/120x90/F5E6D3/8B6F47?text=Success" alt="Thank You">
+                </div>
+                <p>Your consultation request has been submitted successfully. We will contact you within 24 hours to
+                    confirm your appointment and discuss your personalized treatment plan.</p>
+                <p style="margin-top: 20px; font-style: italic;">We look forward to helping you achieve your skin goals!
+                </p>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- footer-area-start -->
+    <footer>
+        <div class="footer-area">
+            <div class="footer-top pt-55">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="footer-widget footer-col-1 mb-70 wow fadeInUp" data-wow-duration="1s"
+                                data-wow-delay=".2s">
+                                <div class="footer-logo">
+                                    <a href="index.html"><img
+                                            src="https://newoaks.s3.us-west-1.amazonaws.com/AutoDev/17785/8c243142-d258-49e5-a3fa-2f953fce9b7a.png"
+                                            alt=""></a>
+                                </div>
+                                <div class="footer-content">
+                                    <div class="footer-info">
+                                        <p>Exceptional care with exceptional technology. Good help what you deserve.
+                                            Advancing
+                                            medicine that touches you. Because your life is most important for us</p>
+                                        <div class="footer-social">
+                                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                            <a href="https://www.youtube.com/@DrParneet" target="_blank"><i
+                                                    class="fa-brands fa-youtube"></i></a>
+                                            <a href="https://www.instagram.com/dr_rapple_dermatologist/"
+                                                target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                                            <!-- <a href="#"><i class="fa-brands fa-wordpress"></i></a> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-6">
+                            <div class="footer-widget footer-col-2 mb-70 wow fadeInUp" data-wow-duration="1s"
+                                data-wow-delay=".4s">
+                                <span class="footer-title">Services</span>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="#">Skin Diseases</a></li>
+                                        <li><a href="#">Hair Problems</a></li>
+                                        <li><a href="#">Facial Rejuvenation</a></li>
+                                        <li><a href="#">Chemical Peels</a></li>
+                                        <li><a href="#">PRP Hair</a></li>
+                                        <li><a href="#">Vampire Facial</a></li>
+                                        <li><a href="#">Beauty Drips</a></li>
+                                        <li><a href="#">Minor Procedures</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-5 col-md-8">
+                            <div class="footer-widget footer-col-3 mb-70 wow fadeInUp" data-wow-duration="1s"
+                                data-wow-delay=".6s">
+                                <span class="footer-title">Our Pages</span>
+                                <div class="footer-link">
+                                    <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="pricing.html">Pricing</a></li>
+                                        <li><a href="shop.html">Shop</a></li>
+                                        <li><a href="team.html">Doctor</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-newsletter">
+                                    <span class="footer-title pt-65">Subscribe Newsletter</span>
+                                    <div class="footer-newsletter-wrap">
+                                        <form action="#">
+                                            <div class="footer-newsletter-wrapper">
+                                                <div class="footer-input">
+                                                    <input type="email" placeholder="Email Address">
+                                                </div>
+                                                <div class="footer-newsletter-submit">
+                                                    <button>
+                                                        <span>
+                                                            <svg width="29" height="29" viewBox="0 0 29 29" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M1.00156 19.2225C0.771562 19.2225 0.541562 19.1345 0.365562 18.9585C0.0135625 18.6075 0.0135625 18.0375 0.365562 17.6865L3.22756 14.8245C3.57956 14.4725 4.14856 14.4725 4.49956 14.8245C4.85156 15.1755 4.85156 15.7455 4.49956 16.0965L1.63756 18.9585C1.46256 19.1345 1.23256 19.2225 1.00156 19.2225Z"
+                                                                    fill="currentColor" />
+                                                                <path
+                                                                    d="M3.31797 26.5824C3.08797 26.5824 2.85797 26.4944 2.68197 26.3184C2.32997 25.9674 2.32997 25.3974 2.68197 25.0464L8.06597 19.6624C8.41797 19.3104 8.98697 19.3104 9.33797 19.6624C9.68997 20.0134 9.68997 20.5834 9.33797 20.9344L3.95397 26.3194C3.77797 26.4954 3.54797 26.5824 3.31797 26.5824Z"
+                                                                    fill="currentColor" />
+                                                                <path
+                                                                    d="M10.6793 28.9003C10.4493 28.9003 10.2193 28.8123 10.0433 28.6363C9.6913 28.2853 9.6913 27.7153 10.0433 27.3643L12.9053 24.5023C13.2573 24.1503 13.8263 24.1503 14.1773 24.5023C14.5293 24.8533 14.5293 25.4233 14.1773 25.7743L11.3153 28.6363C11.1403 28.8123 10.9103 28.9003 10.6793 28.9003Z"
+                                                                    fill="currentColor" />
+                                                                <path
+                                                                    d="M26.4741 0.0842309L2.97013 7.09423C1.19513 7.62323 1.07113 10.0892 2.78313 10.7942L12.8751 14.9532C12.9191 14.8462 12.9831 14.7462 13.0701 14.6602L18.2311 9.49923C18.5831 9.14723 19.1521 9.14723 19.5031 9.49923C19.8551 9.85023 19.8551 10.4202 19.5031 10.7712L14.3421 15.9322C14.2551 16.0192 14.1551 16.0842 14.0481 16.1282L18.2091 26.2252C18.9131 27.9342 21.3751 27.8102 21.9031 26.0382L28.9151 2.52523C29.3611 1.03123 27.9691 -0.360769 26.4741 0.0842309Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom footer-bottom-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-12">
+                            <div class="footer-copyright text-center">
+                                <span>Copyright © 2025 The Rapple Skin Care</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer-area-end -->
+
+
+    <!-- JS here -->
+    <script src="assets/js/vendor/jquery.js"></script>
+    <script src="assets/js/vendor/waypoints.js"></script>
+    <script src="assets/js/bootstrap-bundle.js"></script>
+    <script src="assets/js/meanmenu.js"></script>
+    <script src="assets/js/swiper-bundle.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/nouislider.js"></script>
+    <script src="assets/js/magnific-popup.js"></script>
+    <script src="assets/js/parallax.js"></script>
+    <script src="assets/js/nice-select.js"></script>
+    <script src="assets/js/wow.js"></script>
+    <script src="assets/js/isotope-pkgd.js"></script>
+    <script src="assets/js/imagesloaded-pkgd.js"></script>
+    <script src="assets/js/jquery.appear.js"></script>
+    <script src="assets/js/odometer.min.js"></script>
+    <script src="assets/js/beforeafter.jquery-1.0.0.min.js"></script>
+    <script src="assets/js/splide.js"></script>
+    <script src="assets/js/pignose.calendar.full.min.js"></script>
+    <script src="assets/js/ajax-form.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 7;
+        let answers = {};
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('stepIndicator').textContent = `Step ${currentStep + 1} of ${totalSteps + 1}`;
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                if (currentStep === 5) {
+                    generateRecommendations();
+                }
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function selectOption(element, concern, value) {
+            // Remove selection from siblings
+            element.parentNode.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selection to clicked option
+            element.classList.add('selected');
+
+            // Store answer
+            answers[concern] = value;
+            document.getElementById(`${concern}_concern`).value = value;
+
+            // Enable next button
+            const nextBtn = document.getElementById(`next${currentStep}`);
+            if (nextBtn) {
+                nextBtn.disabled = false;
+            }
+        }
+
+        function generateRecommendations() {
+            let recommendations = [];
+
+            // Treatment recommendation logic
+            if (answers.acne === 'yes' || answers.acne === 'maybe') {
+                recommendations.push("• Chemical Peels for acne treatment and prevention");
+                recommendations.push("• Clinical Dermatology consultation for targeted acne management");
+            }
+
+            if (answers.pigmentation === 'yes' || answers.pigmentation === 'maybe') {
+                recommendations.push("• Chemical Peels for pigmentation and skin brightening");
+                recommendations.push("• Laser Resurfacing for advanced pigmentation correction");
+            }
+
+            if (answers.aging === 'yes' || answers.aging === 'maybe') {
+                recommendations.push("• Facial Rejuvenation treatments (Botox, Fillers, Threads)");
+                recommendations.push("• Vampire Facial (PRP) for natural anti-aging");
+                recommendations.push("• Microneedling for skin texture improvement");
+            }
+
+            if (answers.sensitivity === 'yes') {
+                recommendations.push("• Gentle Clinical Dermatology assessment");
+                recommendations.push("• PRP treatments for sensitive skin rejuvenation");
+            }
+
+            if (answers.dryness === 'yes' || answers.dryness === 'maybe') {
+                recommendations.push("• Beauty Drips for skin hydration and wellness");
+                recommendations.push("• Chemical Peels for skin texture improvement");
+                recommendations.push("• PRP treatments for natural skin restoration");
+            }
+
+            // If no major concerns
+            if (recommendations.length === 0) {
+                recommendations.push("• Preventive skincare consultation");
+                recommendations.push("• Beauty Drips for overall skin wellness");
+                recommendations.push("• Light Chemical Peels for maintenance");
+            }
+
+            // Display recommendations
+            document.getElementById('treatmentRecommendations').innerHTML = recommendations.join('<br>');
+            document.getElementById('recommendedTreatmentsField').value = recommendations.join('; ');
+        }
+
+        // Form submission handling
+        document.getElementById('skinQuizForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Here you would normally submit to your backend
+            // For demo, we'll just show the thank you step
+            setTimeout(() => {
+                currentStep = 7;
+                showStep(currentStep);
+            }, 500);
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+
+</html>
