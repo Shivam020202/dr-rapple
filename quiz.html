@@ -25,12 +25,6 @@
     <link rel="stylesheet" href="assets/css/main.css">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Georgia', serif;
             line-height: 1.6;
@@ -39,10 +33,16 @@
             min-height: 100vh;
         }
 
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -51,7 +51,7 @@
 
         /* Progress Bar */
         .progress-container {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             background-color: #E8D4C4;
             height: 6px;
             position: relative;
@@ -76,34 +76,32 @@
         .quiz-step {
             display: none;
             animation: fadeInUp 0.6s ease-out;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 60px 40px;
-            text-align: center;
-            border: 1px solid #E8D4C4;
+            background-color: #fff4e2;
+            border: 2px solid #E8D4C4;
             box-shadow: 0 10px 30px rgba(107, 76, 58, 0.1);
+            overflow: hidden;
         }
 
         .quiz-step.active {
             display: block;
         }
 
-        .quiz-step h2 {
+        /* Welcome Step Styling */
+        .quiz-step#step0 {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .quiz-step#step0 h2 {
             font-size: 2.5rem;
             color: #6B4C3A;
             margin-bottom: 30px;
             font-weight: 300;
         }
 
-        .quiz-step h3 {
-            font-size: 1.8rem;
-            color: #8B6F47;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        .concern-image {
+        .quiz-step#step0 .concern-image {
             width: 90%;
-            height: 400px;
+            height: 300px;
             padding: 10px;
             margin: 0 auto 40px;
             border: 3px solid #E8D4C4;
@@ -113,46 +111,111 @@
             background-color: #F5E6D3;
         }
 
-        .concern-image img {
+        .quiz-step#step0 .concern-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: sepia(20%) saturate(1.1);
         }
 
+        /* Question Steps */
+        .quiz-step h3 {
+            font-size: 1.6rem;
+            color: #6B4C3A;
+            padding: 30px 40px 20px;
+            text-align: center;
+            font-weight: 400;
+            background-color: #FAF7F2;
+        }
+
+        /* Background Image Container */
+        .image-options-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Background Images for Each Step */
+        .quiz-step#step1 .image-options-container {
+            background-image: url('https://images.unsplash.com/photo-1660646463659-df77c1580723?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .quiz-step#step2 .image-options-container {
+            background-image: url('https://plus.unsplash.com/premium_photo-1664203068177-2641a2a55a4e?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .quiz-step#step3 .image-options-container {
+            background-image: url('https://images.pexels.com/photos/7581587/pexels-photo-7581587.jpeg');
+        }
+
+        .quiz-step#step4 .image-options-container {
+            background-image: url('https://images.pexels.com/photos/6643063/pexels-photo-6643063.jpeg');
+        }
+
+        .quiz-step#step5 .image-options-container {
+            background-image: url('https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/cdn.shopify.com/s/files/1/0410/9608/5665/t/3/assets/pf-28c41d03--Copy-of-Merry-Christmas-A-Happy-New-Year-8.jpg?v=1600449281');
+        }
+
+        /* Dark overlay for better text readability */
+        .image-options-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
         .quiz-options {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
             flex-wrap: wrap;
         }
 
         .quiz-option {
             padding: 15px 35px;
-            background-color: #F5E6D3;
-            border: 2px solid #E8D4C4;
-            color: #8B6F47;
+            background-color: transparent;
+            border: 2px solid #F5E6D3;
+            color: #FAF7F2;
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
             min-width: 120px;
+            backdrop-filter: blur(5px);
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .quiz-option:hover {
-            background-color: #E8D4C4;
+            background-color: rgba(245, 230, 211, 0.2);
+            border-color: #FAF7F2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .quiz-option.selected {
-            background-color: #A67C5A;
+            background-color: rgba(166, 124, 90, 0.8);
             color: #FAF7F2;
             border-color: #A67C5A;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            margin: 30px 40px;
         }
 
         .nav-btn {
@@ -178,12 +241,14 @@
         .results-section {
             text-align: left;
             background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
         }
 
         .results-section h2 {
             color: #6B4C3A;
             margin-bottom: 30px;
             text-align: center;
+            font-size: 2rem;
         }
 
         .recommended-treatments {
@@ -268,17 +333,36 @@
         .thank-you {
             text-align: center;
             background-color: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
         }
 
         .thank-you h2 {
             color: #6B4C3A;
             margin-bottom: 20px;
+            font-size: 2rem;
         }
 
         .thank-you p {
             font-size: 1.2rem;
             color: #8B6F47;
             line-height: 1.8;
+        }
+
+        .thank-you .concern-image {
+            width: 120px;
+            height: 90px;
+            margin: 0 auto 30px;
+            border: 3px solid #E8D4C4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F5E6D3;
+        }
+
+        .thank-you .concern-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Animations */
@@ -294,47 +378,109 @@
             }
         }
 
-        /* Responsive Design */
+        /* Mobile Responsive Design */
         @media (max-width: 768px) {
             .quiz-container {
-                padding: 20px 15px;
-            }
-
-            .quiz-step {
-                padding: 40px 20px;
-            }
-
-            .quiz-step h2 {
-                font-size: 2rem;
+                padding: 15px;
+                min-height: 100vh;
             }
 
             .quiz-step h3 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                padding: 20px 20px 15px;
+            }
+
+            .image-options-container {
+                height: 280px;
             }
 
             .quiz-options {
-                flex-direction: column;
-                align-items: center;
+                gap: 12px;
+                padding: 0 10px;
             }
 
             .quiz-option {
-                width: 200px;
+                padding: 12px 25px;
+                font-size: 1rem;
+                min-width: 90px;
+            }
+
+            .nav-buttons {
+                margin: 20px;
+                gap: 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .quiz-step#step0 {
+                padding: 40px 20px;
+            }
+
+            .quiz-step#step0 h2 {
+                font-size: 1.8rem;
+            }
+
+            .quiz-step#step0 .concern-image {
+                height: 200px;
+                width: 95%;
+            }
+
+            .results-section {
+                padding: 30px 20px;
+            }
+
+            .results-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .appointment-form {
+                padding: 25px 20px;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
             }
 
-            .nav-buttons {
-                flex-direction: column;
-                gap: 15px;
+            .thank-you {
+                padding: 40px 20px;
+            }
+
+            .thank-you h2 {
+                font-size: 1.6rem;
             }
         }
 
-        .nav-container {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 0 20px;
+        @media (max-width: 480px) {
+            .quiz-container {
+                padding: 10px;
+            }
+
+            .progress-container {
+                margin-bottom: 20px;
+            }
+
+            .image-options-container {
+                height: 240px;
+            }
+
+            .quiz-options {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .quiz-option {
+                width: 140px;
+                padding: 10px 20px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                margin: 15px;
+            }
         }
     </style>
 </head>
@@ -596,14 +742,12 @@
             <!-- Question 1: Acne -->
             <div class="quiz-step" id="step1">
                 <h3>Do you experience frequent acne breakouts?</h3>
-                <div class="concern-image">
-                    <img src="https://images.unsplash.com/photo-1660646463659-df77c1580723?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Acne Concerns">
-                </div>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'yes')">Yes</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'maybe')">Maybe</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'acne', 'no')">No</div>
+                <div class="image-options-container">
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 'acne', 'yes')">Yes</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'acne', 'maybe')">Maybe</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'acne', 'no')">No</div>
+                    </div>
                 </div>
                 <input type="hidden" name="acne_concern" id="acne_concern" value="">
                 <div class="nav-buttons">
@@ -615,14 +759,12 @@
             <!-- Question 2: Pigmentation -->
             <div class="quiz-step" id="step2">
                 <h3>Do you have dark spots, pigmentation, or uneven skin tone?</h3>
-                <div class="concern-image">
-                    <img src="https://plus.unsplash.com/premium_photo-1664203068177-2641a2a55a4e?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Pigmentation Issues">
-                </div>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'yes')">Yes</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'maybe')">Maybe</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'no')">No</div>
+                <div class="image-options-container">
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'yes')">Yes</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'maybe')">Maybe</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'no')">No</div>
+                    </div>
                 </div>
                 <input type="hidden" name="pigmentation_concern" id="pigmentation_concern" value="">
                 <div class="nav-buttons">
@@ -634,13 +776,12 @@
             <!-- Question 3: Aging -->
             <div class="quiz-step" id="step3">
                 <h3>Are you concerned about fine lines, wrinkles, or signs of aging?</h3>
-                <div class="concern-image">
-                    <img src="https://images.pexels.com/photos/7581587/pexels-photo-7581587.jpeg" alt="Aging Concerns">
-                </div>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'yes')">Yes</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'maybe')">Maybe</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'aging', 'no')">No</div>
+                <div class="image-options-container">
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 'aging', 'yes')">Yes</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'aging', 'maybe')">Maybe</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'aging', 'no')">No</div>
+                    </div>
                 </div>
                 <input type="hidden" name="aging_concern" id="aging_concern" value="">
                 <div class="nav-buttons">
@@ -652,13 +793,12 @@
             <!-- Question 4: Sensitivity -->
             <div class="quiz-step" id="step4">
                 <h3>Does your skin feel sensitive or react easily to products?</h3>
-                <div class="concern-image">
-                    <img src="https://images.pexels.com/photos/6643063/pexels-photo-6643063.jpeg" alt="Sensitive Skin">
-                </div>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'yes')">Yes</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'maybe')">Maybe</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'no')">No</div>
+                <div class="image-options-container">
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'yes')">Yes</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'maybe')">Maybe</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'no')">No</div>
+                    </div>
                 </div>
                 <input type="hidden" name="sensitivity_concern" id="sensitivity_concern" value="">
                 <div class="nav-buttons">
@@ -670,14 +810,12 @@
             <!-- Question 5: Dryness -->
             <div class="quiz-step" id="step5">
                 <h3>Do you struggle with dry or dull-looking skin?</h3>
-                <div class="concern-image">
-                    <img src="https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/cdn.shopify.com/s/files/1/0410/9608/5665/t/3/assets/pf-28c41d03--Copy-of-Merry-Christmas-A-Happy-New-Year-8.jpg?v=1600449281"
-                        alt="Dry Skin">
-                </div>
-                <div class="quiz-options">
-                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'yes')">Yes</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'maybe')">Maybe</div>
-                    <div class="quiz-option" onclick="selectOption(this, 'dryness', 'no')">No</div>
+                <div class="image-options-container">
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 'dryness', 'yes')">Yes</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'dryness', 'maybe')">Maybe</div>
+                        <div class="quiz-option" onclick="selectOption(this, 'dryness', 'no')">No</div>
+                    </div>
                 </div>
                 <input type="hidden" name="dryness_concern" id="dryness_concern" value="">
                 <div class="nav-buttons">

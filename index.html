@@ -98,8 +98,18 @@
       .skin-type-text p {
          font-size: 1.2rem;
          color: #8B6F47;
-         margin-bottom: 32px;
+         /* margin-bottom: 32px; */
          line-height: 1.8;
+      }
+
+      .skin-type-title {
+         font-size: 2.5rem;
+         font-weight: 500;
+         font-family: --tp-ff-heading;
+         font-style: italic;
+         color: #6B4C3A;
+         margin-bottom: 16px;
+         letter-spacing: -0.5px;
       }
 
       .cta-button {
@@ -207,21 +217,23 @@
       }
 
       .service-icon {
-         width: 80px;
-         height: 80px;
+         width: 200px;
+         height: 200px;
          margin: 0 auto 24px;
          background-color: #f0dcca;
          border-radius: 100%;
          display: flex;
+         overflow: hidden;
          align-items: center;
+         object-fit: cover;
          justify-content: center;
       }
 
       .service-icon img {
-         width: 50px;
-         height: 50px;
+         width: 100%;
+         height: 100%;
          /* filter: brightness(0) invert(1) sepia(100%) saturate(200%) hue-rotate(15deg) brightness(80%); */
-         object-fit: contain;
+         object-fit: cover;
       }
 
       .service-item h3 {
@@ -275,16 +287,353 @@
       }
    </style>
 
+   <style>
+      .video-section {
+         padding: 80px 0;
+         background: linear-gradient(135deg, #fdf9f6 0%, #f8f4f0 50%, #f5f0eb 100%);
+         position: relative;
+         overflow: hidden;
+      }
+
+      .video-section::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: radial-gradient(ellipse at center, rgba(245, 222, 208, 0.3) 0%, transparent 70%);
+         pointer-events: none;
+      }
+
+      .container {
+         max-width: 1400px;
+         margin: 0 auto;
+         padding: 0 20px;
+         position: relative;
+         z-index: 2;
+      }
+
+      .section-header {
+         text-align: center;
+         margin-bottom: 60px;
+      }
+
+      .section-title {
+         font-size: 2.8rem;
+         font-weight: 300;
+         color: #8b6f4d;
+         margin-bottom: 16px;
+         letter-spacing: -0.02em;
+      }
+
+      .section-subtitle {
+         font-size: 1.2rem;
+         color: #a08370;
+         font-weight: 300;
+         line-height: 1.6;
+         max-width: 600px;
+         margin: 0 auto;
+      }
+
+      .video-slider {
+         position: relative;
+         overflow: hidden;
+         background: rgba(255, 255, 255, 0.6);
+         backdrop-filter: blur(10px);
+         border: 1px solid rgba(245, 222, 208, 0.3);
+         box-shadow: 0 20px 60px rgba(139, 111, 77, 0.08);
+      }
+
+      .video-container {
+         display: flex;
+         transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .video-slide {
+         flex: 0 0 auto;
+         background: #ffffff;
+         margin-right: 20px;
+         position: relative;
+      }
+
+      .video-slide:last-child {
+         margin-right: 0;
+      }
+
+      .video-wrapper {
+         position: relative;
+         padding-bottom: 177.78%;
+         /* 9:16 aspect ratio for YouTube Shorts */
+         height: 0;
+         overflow: hidden;
+         background: #f8f4f0;
+      }
+
+      .video-wrapper iframe {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         border: none;
+      }
+
+      .video-info {
+         padding: 30px 25px;
+         background: linear-gradient(135deg, #ffffff 0%, #fdfbf8 100%);
+         border-top: 1px solid rgba(245, 222, 208, 0.2);
+         /* height: 220px; */
+         overflow: hidden;
+         display: flex;
+         flex-direction: column;
+         justify-content: flex-start;
+      }
+
+      .video-title {
+         font-style: italic;
+         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+         font-size: 1.3rem;
+         font-weight: 400;
+         color: #8b6f4d;
+         margin-bottom: 12px;
+         line-height: 1.3;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+      }
+
+      .video-description {
+         font-size: 0.95rem;
+         color: #9d8577;
+         line-height: 1.6;
+         font-weight: 300;
+         display: -webkit-box;
+         -webkit-line-clamp: 4;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+         flex-grow: 1;
+      }
+
+      .treatment-badge {
+         position: absolute;
+         top: 15px;
+         left: 15px;
+         background: rgba(139, 111, 77, 0.9);
+         color: white;
+         padding: 6px 12px;
+         font-size: 0.8rem;
+         font-weight: 400;
+         letter-spacing: 0.5px;
+         backdrop-filter: blur(10px);
+         z-index: 10;
+      }
+
+      .slider-navigation {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-top: 40px;
+      }
+
+      .nav-button {
+         width: 50px;
+         height: 50px;
+         border: 1px solid rgba(139, 111, 77, 0.2);
+         background: rgba(255, 255, 255, 0.9);
+         color: #8b6f4d;
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 20px;
+         transition: all 0.3s ease;
+         backdrop-filter: blur(10px);
+      }
+
+      .nav-button:hover {
+         background: rgba(139, 111, 77, 0.1);
+         border-color: rgba(139, 111, 77, 0.3);
+         transform: translateY(-2px);
+         box-shadow: 0 8px 25px rgba(139, 111, 77, 0.15);
+      }
+
+      .nav-button:disabled {
+         opacity: 0.4;
+         cursor: not-allowed;
+         transform: none;
+         box-shadow: none;
+      }
+
+      .slider-dots {
+         display: flex;
+         gap: 12px;
+      }
+
+      .dot {
+         width: 12px;
+         height: 12px;
+         background: rgba(139, 111, 77, 0.3);
+         cursor: pointer;
+         transition: all 0.3s ease;
+         position: relative;
+      }
+
+      .dot::after {
+         content: '';
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         width: 0;
+         height: 0;
+         background: #8b6f4d;
+         transition: all 0.3s ease;
+      }
+
+      .dot.active::after {
+         width: 100%;
+         height: 100%;
+      }
+
+      .dot:hover {
+         background: rgba(139, 111, 77, 0.5);
+      }
+
+      /* Desktop - 3 videos visible */
+      @media (min-width: 1200px) {
+         .video-slide {
+            width: calc(33.333% - 14px);
+         }
+      }
+
+      /* Tablet - 2 videos visible */
+      @media (min-width: 768px) and (max-width: 1199px) {
+         .video-slide {
+            width: calc(50% - 10px);
+         }
+
+         .container {
+            max-width: 900px;
+         }
+      }
+
+      /* Mobile - 1 video visible */
+      @media (max-width: 767px) {
+         .video-slide {
+            width: 100%;
+            margin-right: 0;
+         }
+
+         .video-section {
+            padding: 60px 0;
+         }
+
+         .container {
+            padding: 0 15px;
+         }
+
+         .section-title {
+            font-size: 2.2rem;
+         }
+
+         .section-subtitle {
+            font-size: 1.1rem;
+         }
+
+         .video-info {
+            padding: 25px 20px;
+            height: 200px;
+         }
+
+         .video-title {
+            font-size: 1.2rem;
+         }
+
+         .video-description {
+            font-size: 0.9rem;
+            -webkit-line-clamp: 3;
+         }
+
+         .nav-button {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+         }
+
+         .slider-navigation {
+            margin-top: 30px;
+         }
+
+         .treatment-badge {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+         }
+      }
+
+      @media (max-width: 480px) {
+         .section-header {
+            margin-bottom: 40px;
+         }
+
+         .section-title {
+            font-size: 1.9rem;
+         }
+
+         .video-info {
+            padding: 20px 15px;
+            height: 180px;
+         }
+
+         .video-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+         }
+
+         .video-description {
+            font-size: 0.85rem;
+         }
+      }
+
+      /* Smooth scroll behavior */
+      .video-container {
+         scroll-behavior: smooth;
+      }
+
+      .banner-list {
+         display: inline-block;
+         list-style: none;
+         /* padding: 0 10px; */
+         font-size: 1.5rem;
+         color: #6B4C3A;
+         font-weight: 500;
+         margin-right: 20px;
+         transition: color 0.3s ease;
+      }
+
+      .banner-list-item {
+         /* color: #A67C5A; */
+         margin-bottom: 6px;
+      }
+
+      .service-title {
+         font-size: 1.6rem;
+         font-style: italic;
+         font-family: --tp-ff-heading;
+         color: #6B4C3A;
+         font-weight: 300;
+         margin-bottom: 10px;
+         /* text-transform: uppercase; */
+      }
+   </style>
+
 </head>
 
 <body>
-   <!--[if lte IE 9]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-      <![endif]-->
-
 
    <!-- pre loader area start -->
-   <div id="loading">
+   <!-- <div id="loading">
       <div id="loading-center">
          <div id="loading-center-absolute">
             <div class="object" id="object_one"></div>
@@ -294,7 +643,7 @@
             <div class="object" id="object_five" style="left:80px;"></div>
          </div>
       </div>
-   </div>
+   </div> -->
    <!-- pre loader area end -->
 
    <!-- back to top start -->
@@ -361,7 +710,7 @@
                                           <li><a href="#">Skin Brightening</a></li>
                                        </ul>
                                     </li>
-                                    <li><a href="#">PRP Hair</a></li>
+                                    <li><a href="#">Hair PRP</a></li>
                                     <li><a href="#">Vampire Facial</a></li>
                                     <li><a href="#">Beauty Drips</a></li>
                                     <li><a href="#">Minor Procedures</a></li>
@@ -503,7 +852,6 @@
    <div class="search-body-overlay"></div>
    <!-- header-search-end -->
 
-   <!-- main-area-start -->
    <main>
 
       <!-- banner-area-start -->
@@ -517,18 +865,18 @@
                         <b></b>
                         <p>Healthy skin, confident you. Advanced care for <br> every skin concern.</p>
                      </div>
-                     <ul class="tpbanner-list">
-                        <li class="tpbanner-list-1"><span>01 - Botox</span></li>
-                        <li class="tpbanner-list-2"><span>02 - Microneedling</span></li>
-                        <li class="tpbanner-list-3"><span>03 - Sun Damage Repair</span></li>
-                        <li class="tpbanner-list-4"><span>04 - Skin Brightening</span></li>
+                     <ul class="banner-list">
+                        <li class="banner-list-item"><span>01 - Hair PRP</span></li>
+                        <li class="banner-list-item"><span>02 - Vampire Facial</span></li>
+                        <li class="banner-list-item"><span>03 - Chemical Peels</span></li>
+                        <li class="banner-list-item"><span>04 - Facial Rejuvenation</span></li>
                      </ul>
                   </div>
                </div>
                <div class="col-lg-6">
                   <div class="tpbanner-shape p-relative">
                      <div class="tpbanner-shape-1  d-lg-none d-xl-block">
-                        <img src="assets/img/banner/hero-main (2).png" alt="">
+                        <img src="assets/img/banner/hero-main2.png" alt="">
                      </div>
                      <div class="tpbanner-shape-2 d-none d-lg-block">
                         <img src="assets/img/banner/banner-1shape-1.svg" alt="">
@@ -664,7 +1012,7 @@
          <div class="container">
             <div class="skin-type-content">
                <div class="skin-type-text">
-                  <h2>Know Your Skin Type</h2>
+                  <p class="skin-type-title fs-1">Know Your Skin Type</p>
                   <p>Understanding your unique skin characteristics is the foundation of effective skincare. Every
                      individual's skin has distinct needs, sensitivities, and requirements that determine the most
                      suitable
@@ -691,211 +1039,206 @@
                <!-- Service 1: Skin Diseases -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/rash.png" alt="Skin Diseases Icon">
+                     <img src="assets/img/services/disease.jpg" alt="Skin Diseases Icon">
                   </div>
-                  <h3>Skin Diseases</h3>
+                  <p class="service-title">Skin Diseases</p>
                   <p class="service-for">For individuals with dermatological conditions</p>
                </div>
 
                <!-- Service 2: Hair Problems -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/hair.png" alt="Hair Problems Icon">
+                     <img src="assets/img/services/hair-problem.jpg" alt="Hair Problems Icon">
                   </div>
-                  <h3>Hair Problems</h3>
+                  <p class="service-title">Hair Problems</p>
                   <p class="service-for">For those experiencing hair loss and scalp issues</p>
                </div>
 
                <!-- Service 3: Facial Rejuvenation -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/facial-treatment.png" alt="Facial Rejuvenation Icon">
+                     <img src="assets/img/services/hair-rejuvenation.jpg" alt="Facial Rejuvenation Icon">
                   </div>
-                  <h3>Facial Rejuvenation</h3>
+                  <p class="service-title">Facial Rejuvenation</p>
                   <p class="service-for">For individuals seeking anti-aging solutions</p>
                </div>
 
                <!-- Service 4: Chemical Peels -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/chemical-peel.png" alt="Chemical Peels Icon">
+                     <img src="assets/img/services/chemical-peel.jpg" alt="Chemical Peels Icon">
                   </div>
-                  <h3>Chemical Peels</h3>
+                  <p class="service-title">Chemical Peels</p>
                   <p class="service-for">For skin texture and pigmentation concerns</p>
                </div>
 
-               <!-- Service 5: PRP Hair -->
+               <!-- Service 5: Hair PRP -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/prp.png" alt="PRP Hair Icon">
+                     <img src="assets/img/services/hair-prp.jpg" alt="PRP Hair Icon">
                   </div>
-                  <h3>PRP Hair Treatment</h3>
+                  <p class="service-title">Hair PRP Treatment</p>
                   <p class="service-for">For individuals with hair thinning and loss</p>
                </div>
 
                <!-- Service 6: Vampire Facial -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/facial-massage.png" alt="Vampire Facial Icon">
+                     <img src="assets/img/services/vampire.jpg" alt="Vampire Facial Icon">
                   </div>
-                  <h3>Vampire Facial</h3>
+                  <p class="service-title">Vampire Facial</p>
                   <p class="service-for">For natural skin rejuvenation seekers</p>
                </div>
 
                <!-- Service 7: Beauty Drips -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/water-drop.png" alt="Beauty Drips Icon">
+                     <img src="assets/img/services/drip.jpg" alt="Beauty Drips Icon">
                   </div>
-                  <h3>Beauty Drips</h3>
+                  <p class="service-title">Beauty Drips</p>
                   <p class="service-for">For wellness and skin enhancement</p>
                </div>
 
                <!-- Service 8: Minor Procedures -->
                <div class="service-item">
                   <div class="service-icon">
-                     <img src="assets/img/icons/woman.png" alt="Minor Procedures Icon">
+                     <img src="assets/img/services/minor-procedure.jpg" alt="Minor Procedures Icon">
                   </div>
-                  <h3>Minor Procedures</h3>
+                  <p class="service-title">Minor Procedures</p>
                   <p class="service-for">For cosmetic enhancement needs</p>
                </div>
             </div>
          </div>
       </section>
 
-      <!-- before-after-area-start -->
-      <div class="before-after-area pb-135">
+      <div class="before-after-area p-5">
+         <h2 class="w-100 text-center pb-30">Before & After</h2>
          <div class="container">
             <div class="row">
                <div class="col-lg-12">
                   <div class="beforeAfter">
-                     <img src="assets/img/before-after/before.png" alt="">
-                     <img src="assets/img/before-after/after.png" alt="">
+                     <img src="assets/img/before-after/filler.png" alt="">
+                     <img src="assets/img/before-after/filler (2).png" alt="">
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <!-- before-after-area-end -->
 
-      <!-- team-area-start -->
-      <!-- <section class="team-area mb-120">
+      <!-- before-after-area-start -->
+      <section class="video-section">
          <div class="container">
-            <div class="row">
-               <div class="col-lg-9">
-                  <div class="tpsection mb-65">
-                     <div class="tpsection-sub-title">
-                        <span>Who We Are</span>
+            <div class="section-header">
+               <h2 class="section-title">Check Our Videos</h2>
+               <p class="section-subtitle">
+                  Explore our latest videos for expert skincare tips, treatment insights, and real patient
+                  journeys—empowering you to make informed decisions for your skin health.
+               </p>
+               </p>
+            </div>
+
+            <div class="video-slider" id="videoSlider">
+               <div class="video-container" id="videoContainer">
+                  <!-- Video Slide 1 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">ACNE TREATMENT</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/8DDwDND8GmM" allowfullscreen></iframe>
                      </div>
-                     <h2 class="tpsection-title">Our Expert Surgeon</h2>
+                     <div class="video-info">
+                        <h3 class="video-title">HAIR PRP 💉#haircare #hairfall #hairprp #plateletrichplasma #drrapple
+                           #skincare</h3>
+                        <!-- <p class="video-description">This advanced treatment uses your own growth factors to stimulate
+                           hair regrowth, strengthen follicles, and restore natural volume—ideal for those struggling
+                           with thinning hair or hair fall.</p> -->
+                     </div>
                   </div>
-               </div>
-               <div class="col-lg-3 align-self-end">
-                  <div class="team-arrows mb-65 d-flex align-items-center justify-content-end">
-                     <div class="team-single-arrow team-button-prev">
-                        <span>
-                           <svg width="35" height="28" viewBox="0 0 35 28" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_326_651)">
-                                 <path d="M35 13.9954H3.29442e-07" stroke="currentColor" stroke-width="2"
-                                    stroke-miterlimit="10" />
-                                 <path d="M13.5547 0C13.5547 7.73574 7.49212 13.9953 -0.000121431 13.9953"
-                                    stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                                 <path d="M-0.000121431 13.9954C7.49212 13.9954 13.5547 20.255 13.5547 27.9907"
-                                    stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                              </g>
-                              <defs>
-                                 <clipPath id="clip0_326_651">
-                                    <rect width="35" height="28" fill="white" transform="matrix(-1 0 0 1 35 0)" />
-                                 </clipPath>
-                              </defs>
-                           </svg>
-                        </span>
+
+                  <!-- Video Slide 2 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">ANTI-AGING</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/WryezBnW4lc" allowfullscreen></iframe>
                      </div>
-                     <div class="team-single-arrow team-button-next ml-25">
-                        <span>
-                           <svg width="35" height="28" viewBox="0 0 35 28" fill="none"
-                              xmlns="http://www.w3.org/2000/svg">
-                              <g clip-path="url(#clip0_326_645)">
-                                 <path d="M0 13.9954H35" stroke="currentColor" stroke-width="2"
-                                    stroke-miterlimit="10" />
-                                 <path d="M21.4453 0C21.4453 7.73574 27.5079 13.9953 35.0001 13.9953"
-                                    stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                                 <path d="M35.0001 13.9954C27.5079 13.9954 21.4453 20.255 21.4453 27.9907"
-                                    stroke="currentColor" stroke-width="2" stroke-miterlimit="10" />
-                              </g>
-                              <defs>
-                                 <clipPath id="clip0_326_645">
-                                    <rect width="35" height="28" fill="white" />
-                                 </clipPath>
-                              </defs>
-                           </svg>
-                        </span>
+                     <div class="video-info">
+                        <h3 class="video-title">Vitamin D low? Here’s the test to confirm and how to fix it.
+                           #VitaminDDeficiency #VitaminDTest</h3>
+                        <!-- <p class="video-description">45-year-old Maria's remarkable anti-aging results achieved through
+                           our
+                           revolutionary non-invasive radiofrequency treatments - no surgery required.</p> -->
+                     </div>
+                  </div>
+
+                  <!-- Video Slide 3 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">PIGMENTATION</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/717euI34jeU" allowfullscreen></iframe>
+                     </div>
+                     <div class="video-info">
+                        <h3 class="video-title">Oily skin? Let’s turn that shine into glow — your perfect routine starts
+                           here! #OilySkinCare</h3>
+                        <!-- <p class="video-description">Stubborn melasma patches that persisted for years completely
+                           cleared
+                           using our multi-modal approach with chemical peels and targeted laser treatments.</p> -->
+                     </div>
+                  </div>
+
+                  <!-- Video Slide 4 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">SCAR REMOVAL</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/yJtiONCTPWU" allowfullscreen></iframe>
+                     </div>
+                     <div class="video-info">
+                        <h3 class="video-title">3 Hidden Foods That Worsen Acne (Yes, Even Canned!) #acnecare #acnetips
+                           #clearskinjourney</h3>
+                        <!-- <p class="video-description">Witness the transformative power of fractional laser resurfacing
+                           and
+                           microneedling on deep acne scars over a 4-month treatment period.</p> -->
+                     </div>
+                  </div>
+
+                  <!-- Video Slide 5 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">SKIN RENEWAL</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/K9bUuXqXo-M" allowfullscreen></iframe>
+                     </div>
+                     <div class="video-info">
+                        <h3 class="video-title">📌 Save this reel & share it with someone struggling with dark circles!
+                           ✨Do you have dark circles ???</h3>
+                        <!-- <p class="video-description">See how our comprehensive skin renewal program transformed rough,
+                           uneven
+                           skin texture into smooth, glowing complexion in just 3 months.</p> -->
+                     </div>
+                  </div>
+
+                  <!-- Video Slide 6 -->
+                  <div class="video-slide">
+                     <!-- <div class="treatment-badge">ROSACEA</div> -->
+                     <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/NuPY8GkZMKo" allowfullscreen></iframe>
+                     </div>
+                     <div class="video-info">
+                        <h3 class="video-title">Everything you need to know about tattoo removal ✒️ #TattooRemoval
+                           #LaserTattooRemoval</h3>
+                        <!-- <p class="video-description">Chronic facial redness and inflammation from rosacea successfully
+                           treated
+                           with our specialized IPL therapy and customized skincare regimen.</p> -->
                      </div>
                   </div>
                </div>
             </div>
-            <div class="swiper-container team-active">
-               <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                     <div class="team-item tp-thumb-common fix">
-                        <div class="tp-thumb-common-overlay wow"></div>
-                        <div class="team-profile">
-                           <img src="assets/img/team/team-1.jpg" alt="">
-                        </div>
-                        <div class="team-content text-center">
-                           <div class="team-author-social pt-50 pb-20">
-                              <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
-                              <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                              <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                           </div>
-                           <h4 class="team-author-title under-line-white"><a href="team-details.html">Dr. Michle
-                                 Jhon</a> </h4>
-                           <span class="team-author-position">Brain Surgeon</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                     <div class="team-item tp-thumb-common fix">
-                        <div class="tp-thumb-common-overlay wow"></div>
-                        <div class="team-profile">
-                           <img src="assets/img/team/team-2.jpg" alt="">
-                        </div>
-                        <div class="team-content text-center">
-                           <div class="team-author-social pt-50 pb-20">
-                              <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
-                              <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                              <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                           </div>
-                           <h4 class="team-author-title under-line-white"> <a href="team-details.html">Dr. Farzana
-                                 Leo</a> </h4>
-                           <span class="team-author-position">Skin Surgeon</span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="swiper-slide">
-                     <div class="team-item tp-thumb-common fix">
-                        <div class="tp-thumb-common-overlay wow"></div>
-                        <div class="team-profile">
-                           <img src="assets/img/team/team-3.jpg" alt="">
-                        </div>
-                        <div class="team-content text-center">
-                           <div class="team-author-social pt-50 pb-20">
-                              <a href="#"><i class="fa-solid fa-paper-plane"></i></a>
-                              <a href="#"><i class="fa-brands fa-pinterest-p"></i></a>
-                              <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                           </div>
-                           <h4 class="team-author-title under-line-white"> <a href="team-details.html">Dr. Jesif</a>
-                           </h4>
-                           <span class="team-author-position">Brain Surgeon</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+
+            <div class="slider-navigation">
+               <button class="nav-button" id="prevBtn">‹</button>
+               <div class="slider-dots" id="sliderDots"></div>
+               <button class="nav-button" id="nextBtn">›</button>
             </div>
          </div>
-      </section> -->
-      <!-- team-area-end -->
+      </section>
+      <!-- before-after-area-end -->
 
       <!-- appoinment-form-area-start -->
       <section class="appoinment-form-area theme-bg-2 p-relative mb-140 pt-150 pb-140">
@@ -1042,15 +1385,15 @@
                                     <div class="testimonial-content">
                                        <p>“Just 3-4 months ago, my acne was so bad that I used to isolate myself
                                           it was truly traumatic. I felt hopeless until I had a consultation with Dr.
-                                          Rapple. She completely changed things for me
+                                          Parneet Sidhu. She completely changed things for me
                                           by guiding me through simple dietary changes and recommending minimal,
                                           effective skincare.
                                           Now, after almost 6 months, my skin is fully clear. I still use the same face
                                           wash, moisturizer, and sunscreen because
                                           they genuinely work. I’m honestly surprised by the results. So grateful
-                                          thank you so much, Dr. Rapple!”</p>
+                                          thank you so much, Dr. Parneet!”</p>
                                        <div class="testimonial-author">
-                                          <span class="testimonial-author-name">Blessi</span>
+                                          <span class="testimonial-author-name">Blessi , Mumbai</span>
                                           <span class="testimonial-author-position">Online Consultation</span>
                                        </div>
                                     </div>
@@ -1291,7 +1634,7 @@
       <!-- brand-slider-area-end -->
 
    </main>
-   <!-- main-area-end -->
+
 
 
    <!-- footer-area-start -->
@@ -1334,7 +1677,7 @@
                               <li><a href="#">Hair Problems</a></li>
                               <li><a href="#">Facial Rejuvenation</a></li>
                               <li><a href="#">Chemical Peels</a></li>
-                              <li><a href="#">PRP Hair</a></li>
+                              <li><a href="#">Hair PRP</a></li>
                               <li><a href="#">Vampire Facial</a></li>
                               <li><a href="#">Beauty Drips</a></li>
                               <li><a href="#">Minor Procedures</a></li>
@@ -1431,6 +1774,181 @@
    <script src="assets/js/pignose.calendar.full.min.js"></script>
    <script src="assets/js/ajax-form.js"></script>
    <script src="assets/js/main.js"></script>
+
+
+
+   <script>
+      class VideoSlider {
+         constructor() {
+            this.currentIndex = 0;
+            this.totalSlides = document.querySelectorAll('.video-slide').length;
+            this.videoContainer = document.getElementById('videoContainer');
+            this.prevBtn = document.getElementById('prevBtn');
+            this.nextBtn = document.getElementById('nextBtn');
+            this.dotsContainer = document.getElementById('sliderDots');
+
+            this.visibleSlides = this.getVisibleSlides();
+            this.maxIndex = Math.max(0, this.totalSlides - this.visibleSlides);
+
+            this.init();
+            this.handleResize();
+         }
+
+         getVisibleSlides() {
+            const width = window.innerWidth;
+            if (width >= 1200) return 3;
+            if (width >= 768) return 2;
+            return 1;
+         }
+
+         init() {
+            this.createDots();
+            this.updateSlider();
+            this.bindEvents();
+            this.startAutoPlay();
+         }
+
+         createDots() {
+            this.dotsContainer.innerHTML = '';
+            const totalDots = this.maxIndex + 1;
+
+            for (let i = 0; i < totalDots; i++) {
+               const dot = document.createElement('div');
+               dot.classList.add('dot');
+               if (i === 0) dot.classList.add('active');
+               dot.addEventListener('click', () => this.goToSlide(i));
+               this.dotsContainer.appendChild(dot);
+            }
+         }
+
+         updateSlider() {
+            const slideWidth = 100 / this.visibleSlides;
+            const translateX = -this.currentIndex * slideWidth;
+            this.videoContainer.style.transform = `translateX(${translateX}%)`;
+
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+               dot.classList.toggle('active', index === this.currentIndex);
+            });
+
+            // Update navigation buttons
+            this.prevBtn.disabled = this.currentIndex === 0;
+            this.nextBtn.disabled = this.currentIndex >= this.maxIndex;
+         }
+
+         nextSlide() {
+            if (this.currentIndex < this.maxIndex) {
+               this.currentIndex++;
+               this.updateSlider();
+               this.resetAutoPlay();
+            }
+         }
+
+         prevSlide() {
+            if (this.currentIndex > 0) {
+               this.currentIndex--;
+               this.updateSlider();
+               this.resetAutoPlay();
+            }
+         }
+
+         goToSlide(index) {
+            if (index >= 0 && index <= this.maxIndex) {
+               this.currentIndex = index;
+               this.updateSlider();
+               this.resetAutoPlay();
+            }
+         }
+
+         handleResize() {
+            window.addEventListener('resize', () => {
+               const newVisibleSlides = this.getVisibleSlides();
+               if (newVisibleSlides !== this.visibleSlides) {
+                  this.visibleSlides = newVisibleSlides;
+                  this.maxIndex = Math.max(0, this.totalSlides - this.visibleSlides);
+
+                  // Adjust current index if needed
+                  if (this.currentIndex > this.maxIndex) {
+                     this.currentIndex = this.maxIndex;
+                  }
+
+                  this.createDots();
+                  this.updateSlider();
+               }
+            });
+         }
+
+         bindEvents() {
+            this.nextBtn.addEventListener('click', () => this.nextSlide());
+            this.prevBtn.addEventListener('click', () => this.prevSlide());
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+               if (e.key === 'ArrowLeft') this.prevSlide();
+               if (e.key === 'ArrowRight') this.nextSlide();
+            });
+
+            // Touch/swipe support
+            let startX = 0;
+            let endX = 0;
+
+            this.videoContainer.addEventListener('touchstart', (e) => {
+               startX = e.touches[0].clientX;
+            });
+
+            this.videoContainer.addEventListener('touchmove', (e) => {
+               e.preventDefault();
+            });
+
+            this.videoContainer.addEventListener('touchend', (e) => {
+               endX = e.changedTouches[0].clientX;
+               const diff = startX - endX;
+
+               if (Math.abs(diff) > 50) {
+                  if (diff > 0) {
+                     this.nextSlide();
+                  } else {
+                     this.prevSlide();
+                  }
+               }
+            });
+         }
+
+         startAutoPlay() {
+            this.autoPlayInterval = setInterval(() => {
+               if (this.currentIndex >= this.maxIndex) {
+                  this.currentIndex = 0;
+               } else {
+                  this.currentIndex++;
+               }
+               this.updateSlider();
+            }, 6000);
+         }
+
+         resetAutoPlay() {
+            clearInterval(this.autoPlayInterval);
+            this.startAutoPlay();
+         }
+
+         pauseAutoPlay() {
+            clearInterval(this.autoPlayInterval);
+         }
+
+         resumeAutoPlay() {
+            this.startAutoPlay();
+         }
+      }
+
+      // Initialize slider when DOM is loaded
+      document.addEventListener('DOMContentLoaded', () => {
+         const slider = new VideoSlider();
+
+         // Pause autoplay when user hovers over the slider
+         const videoSlider = document.getElementById('videoSlider');
+         videoSlider.addEventListener('mouseenter', () => slider.pauseAutoPlay());
+         videoSlider.addEventListener('mouseleave', () => slider.resumeAutoPlay());
+      });
+   </script>
 </body>
 
 </html>
