@@ -178,20 +178,24 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            position: relative;
+            position: absolute;
             z-index: 2;
             flex-wrap: wrap;
+            bottom: 30px;
+            left: 0;
+            right: 0;
         }
 
         .quiz-option {
-            padding: 15px 35px;
+            padding: 10px 25px;
             background-color: transparent;
             border: 2px solid #F5E6D3;
             color: #FAF7F2;
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            min-width: 120px;
+            min-width: 30px;
+            width: fit-content;
             backdrop-filter: blur(5px);
             font-weight: 500;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -467,13 +471,13 @@
             }
 
             .quiz-options {
-                flex-direction: column;
+                /* flex-direction: column; */
                 align-items: center;
                 gap: 10px;
             }
 
             .quiz-option {
-                width: 140px;
+                /* width: 140px; */
                 padding: 10px 20px;
             }
 
@@ -724,7 +728,7 @@
 
             <!-- Welcome Step -->
             <div class="quiz-step active" id="step0">
-                <h2>Discover Your Perfect Skin Treatment</h2>
+                <h2 class="font-ovrd">Discover Your Perfect Skin Treatment</h2>
                 <div class="concern-image">
                     <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Skin Care">
@@ -741,7 +745,7 @@
 
             <!-- Question 1: Acne -->
             <div class="quiz-step" id="step1">
-                <h3>Do you experience frequent acne breakouts?</h3>
+                <h3 class="font-ovrd">Do you experience frequent acne breakouts?</h3>
                 <div class="image-options-container">
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="selectOption(this, 'acne', 'yes')">Yes</div>
@@ -758,7 +762,7 @@
 
             <!-- Question 2: Pigmentation -->
             <div class="quiz-step" id="step2">
-                <h3>Do you have dark spots, pigmentation, or uneven skin tone?</h3>
+                <h3 class="font-ovrd">Do you have dark spots, pigmentation, or uneven skin tone?</h3>
                 <div class="image-options-container">
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="selectOption(this, 'pigmentation', 'yes')">Yes</div>
@@ -775,7 +779,7 @@
 
             <!-- Question 3: Aging -->
             <div class="quiz-step" id="step3">
-                <h3>Are you concerned about fine lines, wrinkles, or signs of aging?</h3>
+                <h3 class="font-ovrd">Are you concerned about fine lines, wrinkles, or signs of aging?</h3>
                 <div class="image-options-container">
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="selectOption(this, 'aging', 'yes')">Yes</div>
@@ -792,7 +796,7 @@
 
             <!-- Question 4: Sensitivity -->
             <div class="quiz-step" id="step4">
-                <h3>Does your skin feel sensitive or react easily to products?</h3>
+                <h3 class="font-ovrd">Does your skin feel sensitive or react easily to products?</h3>
                 <div class="image-options-container">
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="selectOption(this, 'sensitivity', 'yes')">Yes</div>
@@ -809,7 +813,7 @@
 
             <!-- Question 5: Dryness -->
             <div class="quiz-step" id="step5">
-                <h3>Do you struggle with dry or dull-looking skin?</h3>
+                <h3 class="font-ovrd">Do you struggle with dry or dull-looking skin?</h3>
                 <div class="image-options-container">
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="selectOption(this, 'dryness', 'yes')">Yes</div>
@@ -826,15 +830,15 @@
 
             <!-- Results & Appointment Form -->
             <div class="quiz-step results-section" id="step6">
-                <h2>Your Personalized Treatment Recommendations</h2>
+                <h2 class="font-ovrd">Your Personalized Treatment Recommendations</h2>
 
                 <div class="recommended-treatments">
-                    <h3>Based on your responses, we recommend:</h3>
+                    <h3 class="font-ovrd">Based on your responses, we recommend:</h3>
                     <div class="treatment-list" id="treatmentRecommendations"></div>
                 </div>
 
                 <div class="appointment-form">
-                    <h3 style="color: #6B4C3A; margin-bottom: 30px; text-align: center;">Book Your Consultation</h3>
+                    <h3 class="font-ovrd" style="margin-bottom: 30px; text-align: center;">Book Your Consultation</h3>
 
                     <div class="form-row">
                         <div class="form-group">
@@ -899,7 +903,7 @@
 
             <!-- Thank You Step -->
             <div class="quiz-step thank-you" id="step7">
-                <h2>Thank You!</h2>
+                <h2 class="font-ovrd">Thank You!</h2>
                 <div class="concern-image">
                     <img src="https://via.placeholder.com/120x90/F5E6D3/8B6F47?text=Success" alt="Thank You">
                 </div>

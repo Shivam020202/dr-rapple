@@ -71,7 +71,7 @@
 
       /* Know Your Skin Type Section */
       .skin-type-section {
-         padding: 80px 0;
+         /* padding: 80px 0; */
          background: linear-gradient(135deg, #F5E6D3 0%, #E8D4C4 100%);
          animation: fadeInUp 1s ease-out;
       }
@@ -137,7 +137,7 @@
 
       .skin-type-image img {
          width: 100%;
-         height: 400px;
+         /* height: 400px; */
          object-fit: cover;
          filter: sepia(20%) saturate(1.2);
       }
@@ -628,6 +628,151 @@
       }
    </style>
 
+   <style>
+      .tabs {
+         display: flex;
+         justify-content: center;
+         margin-bottom: 20px;
+         margin-top: 20px;
+      }
+
+      .tab-pane {
+         margin: 0 auto;
+         transition: opacity 0.3s ease-in-out;
+         overflow: hidden;
+      }
+
+      .tab-pane.active {
+         /* height: auto; */
+         overflow: visible;
+      }
+
+      .tab-button {
+         padding: 8px 16px;
+         font-size: 1rem;
+         color: #6B4C3A;
+         font-style: italic;
+         background-color: #F5E6D3;
+         border: 1px solid #E8D4C4;
+         /* border-radius: 0.375rem; */
+         cursor: pointer;
+         transition: all 0.3s ease;
+         margin-right: 10px;
+      }
+
+      .tab-button.active {
+         border-bottom: 2px solid #A67C5A;
+         color: #A67C5A;
+         font-weight: 600;
+      }
+   </style>
+
+   <style>
+      .main-container {
+         max-width: 1400px;
+      }
+
+      .page-header {
+         padding: 4rem 0;
+         text-align: center;
+      }
+
+      .page-header h1 {
+         font-weight: 700;
+         color: #2c2c2c;
+         margin-bottom: 0.5rem;
+      }
+
+      .page-header p {
+         font-weight: 400;
+         font-size: 1.1rem;
+         color: #4a4a4a;
+      }
+
+      .skin-type-card {
+         background-color: #E9D1C1;
+         /* A shade between primary and secondary */
+         /* border-radius: 1rem; */
+         border: 1px solid #d1b896;
+         padding: 2rem;
+         text-align: center;
+         transition: all 0.3s ease;
+         cursor: pointer;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         /* Center items horizontally */
+         justify-content: center;
+      }
+
+      .skin-type-card:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 10px 20px rgba(184, 124, 93, 0.2);
+      }
+
+      .skin-type-card img {
+         width: 150px;
+         height: 150px;
+         border-radius: 50%;
+         object-fit: cover;
+         margin-bottom: 1.5rem;
+         border: 3px solid #d1b896;
+         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .skin-type-card h3 {
+         font-weight: 600;
+         color: #2c2c2c;
+         margin-bottom: 0.75rem;
+      }
+
+      .skin-type-card p {
+         font-size: 0.95rem;
+         line-height: 1.6;
+      }
+
+      .custom-modal-content {
+         background-color: #e5dac1;
+         /* Slightly darker shade */
+         border-radius: 1rem;
+         border: none;
+         color: #4a4a4a;
+      }
+
+      .custom-modal-header {
+         border-bottom: 1px solid #d1b896;
+      }
+
+      .custom-modal-title {
+         color: #2c2c2c;
+         font-weight: 700;
+      }
+
+      .custom-modal-body h5 {
+         color: #2c2c2c;
+         font-weight: 600;
+         margin-top: 1rem;
+         margin-bottom: 0.5rem;
+      }
+
+      .modal-cta-btn {
+         background-color: #b87c5d;
+         /* A warm brown for accents */
+         border: none;
+         color: #f8f4e3;
+         font-weight: 600;
+         padding: 0.75rem 2rem;
+         border-radius: 0rem;
+         transition: background-color 0.3s ease;
+      }
+
+      .modal-cta-btn:hover {
+         background-color: #a56b4f;
+         color: #f8f4e3;
+      }
+   </style>
+
 </head>
 
 <body>
@@ -866,10 +1011,10 @@
                         <p>Healthy skin, confident you. Advanced care for <br> every skin concern.</p>
                      </div>
                      <ul class="banner-list">
-                        <li class="banner-list-item"><span>01 - Hair PRP</span></li>
-                        <li class="banner-list-item"><span>02 - Vampire Facial</span></li>
-                        <li class="banner-list-item"><span>03 - Chemical Peels</span></li>
-                        <li class="banner-list-item"><span>04 - Facial Rejuvenation</span></li>
+                        <li class="banner-list-item"><span>Hair PRP</span></li>
+                        <li class="banner-list-item"><span>Vampire Facial</span></li>
+                        <li class="banner-list-item"><span>Chemical Peels</span></li>
+                        <li class="banner-list-item"><span>Facial Rejuvenation</span></li>
                      </ul>
                   </div>
                </div>
@@ -915,11 +1060,7 @@
          <div class="container">
             <div class="row">
                <div class="col-lg-4">
-                  <div class="tpsection mt-20">
-                     <div class="tpsection-sub-title">
-                        <span>Who We Are</span>
-                     </div>
-                  </div>
+
                   <div class="about-thumb mt-70 wow fadeInUp mb-30" data-wow-duration="1s" data-wow-delay=".6s">
                      <img src="https://html.storebuild.shop/vamary-prv/vamary/assets/img/about/about-thumb-1.png"
                         alt="">
@@ -1020,7 +1161,7 @@
                   <a href="/quiz.html" class="cta-button">Discover Your Skin Type</a>
                </div>
                <div class="skin-type-image">
-                  <img src="assets/img/feature/skin-types.png" alt="Skin Type Analysis">
+                  <img src="assets/img/about/rapple.png" alt="Skin Type Analysis">
                </div>
             </div>
          </div>
@@ -1030,7 +1171,7 @@
       <section class="services-section">
          <div class="container">
             <div class="services-header">
-               <h2>Our Services</h2>
+               <h2 class="font-ovrd">Our Services</h2>
                <p>Comprehensive dermatological expertise tailored to address your unique skin and aesthetic needs with
                   precision and care.</p>
             </div>
@@ -1111,7 +1252,7 @@
          </div>
       </section>
 
-      <div class="before-after-area p-5">
+      <!-- <div class="before-after-area p-5">
          <h2 class="w-100 text-center pb-30">Before & After</h2>
          <div class="container">
             <div class="row">
@@ -1123,13 +1264,58 @@
                </div>
             </div>
          </div>
+      </div> -->
+
+      <div class="before-after-area p-5">
+         <div class="">
+            <h1 class="font-ovrd text-center pb-8 ">Before & After</h1>
+
+            <!-- Tabs Navigation -->
+            <div class="tabs d-flex justify-content-center">
+               <button data-tab-target="tab1-content" class="tab-button active">
+                  Filler Treatment
+               </button>
+               <button data-tab-target="tab2-content" class="tab-button">
+                  Laser Treatment
+               </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+               <div id="tab1-content" class="tab-pane active">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                           <div class="beforeAfter">
+                              <img src="assets/img/before-after/filler.png" alt="">
+                              <img src="assets/img/before-after/filler (2).png" alt="">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div id="tab2-content" class="tab-pane">
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-lg-12">
+                           <div class="beforeAfter">
+                              <img src="assets/img/before-after/filler.png" alt="">
+                              <img src="assets/img/before-after/filler (2).png" alt="">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
 
       <!-- before-after-area-start -->
       <section class="video-section">
          <div class="container">
             <div class="section-header">
-               <h2 class="section-title">Check Our Videos</h2>
+               <h2 class="font-ovrd section-title">Check Our Videos</h2>
                <p class="section-subtitle">
                   Explore our latest videos for expert skincare tips, treatment insights, and real patient
                   journeys—empowering you to make informed decisions for your skin health.
@@ -1240,14 +1426,117 @@
       </section>
       <!-- before-after-area-end -->
 
+      <!-- Main Content Container -->
+      <div class="main-container container my-5">
+         <!-- Header Section -->
+         <div class="page-header">
+            <h1 class="font-ovrd">Discover Your Skin Type</h1>
+            <p class="mb-5">Click on any skin type to learn more about its characteristics and how to care for it.</p>
+         </div>
+
+         <!-- Skin Type Cards Grid -->
+         <div class="row g-4">
+            <!-- Dry Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal" data-skin-type="Dry Skin"
+                  data-skin-description="Feels tight, often with rough or flaky patches. It produces less oil than other skin types and can appear dull."
+                  data-skin-treatment="Focus on hydration with hyaluronic acid and ceramide-rich products. Use a gentle, non-foaming cleanser and thick moisturizers to lock in moisture.">
+                  <img src="assets/img/skin-type/dry.png" alt="Image representing dry skin">
+                  <h3 class="font-ovrd">Dry Skin</h3>
+                  <p>Feels tight, may have flaky patches, and lacks natural moisture.</p>
+               </div>
+            </div>
+
+            <!-- Oily Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal" data-skin-type="Oily Skin"
+                  data-skin-description="Feels sticky to the touch and appears shiny, especially in the T-zone. Pores are often enlarged and visible."
+                  data-skin-treatment="Incorporate products with salicylic acid or niacinamide to control oil production. Use a gentle foaming cleanser and a lightweight, oil-free moisturizer.">
+                  <img src="assets/img/skin-type/oily.png" alt="Image representing oily skin">
+                  <h3 class="font-ovrd">Oily Skin</h3>
+                  <p>Appears shiny, feels oily, and has enlarged, visible pores.</p>
+               </div>
+            </div>
+
+            <!-- Combination Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal"
+                  data-skin-type="Combination Skin"
+                  data-skin-description="Characterized by both oily and dry areas. Typically, the T-zone (forehead, nose, and chin) is oily, while the cheeks are dry."
+                  data-skin-treatment="Use a targeted approach. Use a gentle cleanser for all areas, and then apply different products to the T-zone and cheeks as needed, focusing on balancing moisture.">
+                  <img src="assets/img/skin-type/combination.png" alt="Image representing combination skin">
+                  <h3 class="font-ovrd">Combination Skin</h3>
+                  <p>Oily in the T-zone (forehead, nose, chin) and dry on the cheeks.</p>
+               </div>
+            </div>
+
+            <!-- Normal Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal"
+                  data-skin-type="Normal Skin"
+                  data-skin-description="Well-balanced, with a healthy moisture content and minimal imperfections. It is neither too oily nor too dry and feels comfortable."
+                  data-skin-treatment="Maintain this balance with a simple, consistent routine. Use a mild cleanser, a hydrating serum, and a moisturizer with SPF to protect against sun damage.">
+                  <img src="assets/img/skin-type/normal.png" alt="Image representing normal skin">
+                  <h3 class="font-ovrd">Normal Skin</h3>
+                  <p>Balanced, with no excessive oiliness or dryness. It's often clear and radiant.</p>
+               </div>
+            </div>
+
+            <!-- Sensitive Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal"
+                  data-skin-type="Sensitive Skin"
+                  data-skin-description="Prone to redness, itching, and reactions to certain products. It is easily irritated and can feel hot or uncomfortable to the touch."
+                  data-skin-treatment="Opt for hypoallergenic and fragrance-free products. Look for soothing ingredients like aloe vera or chamomile, and patch test new products to avoid reactions.">
+                  <img src="assets/img/skin-type/sensitive.png" alt="Image representing sensitive skin">
+                  <h3 class="font-ovrd">Sensitive Skin</h3>
+                  <p>Reacts negatively to products, becomes red or inflamed easily, and feels irritated.</p>
+               </div>
+            </div>
+
+            <!-- Acne-Prone Skin Card -->
+            <div class="col-md-6 col-lg-4">
+               <div class="skin-type-card" data-bs-toggle="modal" data-bs-target="#skinModal"
+                  data-skin-type="Acne-Prone Skin"
+                  data-skin-description="Regularly develops breakouts, blemishes, or pimples. This type can be oily or combination and is prone to clogged pores."
+                  data-skin-treatment="Utilize treatments with benzoyl peroxide or retinoids to target breakouts. Ensure your routine includes thorough cleansing and products that won't clog pores (non-comedogenic).">
+                  <img src="assets/img/skin-type/acne.png" alt="Image representing acne-prone skin">
+                  <h3 class="font-ovrd">Acne-Prone Skin</h3>
+                  <p>Experiences frequent breakouts, pimples, and clogged pores.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Skin Type Modal -->
+      <div class=" modal fade" id="skinModal" tabindex="-1" aria-labelledby="skinModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="custom-modal-content modal-content">
+               <div class="custom-modal-header modal-header">
+                  <h5 class="custom-modal-title modal-title font-ovrd" id="skinModalLabel"></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="custom-modal-body modal-body">
+                  <p id="modalDescription"></p>
+                  <h5 class="font-ovrd">Suggested Treatment</h5>
+                  <p id="modalTreatment"></p>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <a href="#" class="modal-cta-btn btn" id="ctaButton">Explore Treatments</a>
+               </div>
+            </div>
+         </div>
+      </div>
+
       <!-- appoinment-form-area-start -->
       <section class="appoinment-form-area theme-bg-2 p-relative mb-140 pt-150 pb-140">
          <div class="container">
             <div class="row">
                <div class="col-xxl-5 col-xl-6 col-lg-5">
                   <div class="tpsection mb-30">
-                     <div class="tpsection-sub-title">
-                        <span>Get Appointment</span>
+                     <div class=" mb-20">
+                        <span class="font-dark">Get Appointment</span>
                      </div>
                      <h2 class="tpsection-title">Submit Your Details To <br> Book Yourself</h2>
                   </div>
@@ -1298,7 +1587,7 @@
                            </div>
                            <div class="col-lg-12">
                               <div class="appoinment-form-submit mb-30">
-                                 <button class="tp-btn">Get Appointment</button>
+                                 <button class="tp-btn"><span class="font-dark">Get Appointment</span></button>
                               </div>
                            </div>
                         </div>
@@ -1336,19 +1625,19 @@
                               alt="">
                         </div>
                      </div>
-                     <div class="happy-client">
-                        <h2 class="count"><span class="odometer" data-count="2"></span>K</h2>
-                        <p>Happy <br> Customers</p>
+                     <div class="happy-client font-dark">
+                        <h2 class="count font-dark"><span class="odometer" data-count="2"></span>K</h2>
+                        <p class="font-dark">Happy <br> Customers</p>
                      </div>
                   </div>
                </div>
                <div class="col-xl-5 col-lg-6">
                   <div class="testimonial-wrapper mb-60">
                      <div class="tpsection mb-25">
-                        <div class="tpsection-sub-title mb-15">
-                           <span>Testimonial</span>
+                        <div class=" mb-15">
+                           <span class="font-dark">Testimonial</span>
                         </div>
-                        <h2 class="tpsection-title">What Our Customers Says About Us</h2>
+                        <h2 class="tpsection-title font-ovrd">What Our Customers Says About Us</h2>
                      </div>
                      <div class="testimonial-box p-relative">
                         <div class="testimonial-1-thumb">
@@ -1383,14 +1672,19 @@
                               <div class="swiper-wrapper">
                                  <div class="swiper-slide">
                                     <div class="testimonial-content">
-                                       <p>“Just 3-4 months ago, my acne was so bad that I used to isolate myself
-                                          it was truly traumatic. I felt hopeless until I had a consultation with Dr.
+                                       <p>“Just 3-4 months ago, my acne was so bad that I used to isolate
+                                          myself
+                                          it was truly traumatic. I felt hopeless until I had a consultation
+                                          with Dr.
                                           Parneet Sidhu. She completely changed things for me
-                                          by guiding me through simple dietary changes and recommending minimal,
+                                          by guiding me through simple dietary changes and recommending
+                                          minimal,
                                           effective skincare.
-                                          Now, after almost 6 months, my skin is fully clear. I still use the same face
+                                          Now, after almost 6 months, my skin is fully clear. I still use the
+                                          same face
                                           wash, moisturizer, and sunscreen because
-                                          they genuinely work. I’m honestly surprised by the results. So grateful
+                                          they genuinely work. I’m honestly surprised by the results. So
+                                          grateful
                                           thank you so much, Dr. Parneet!”</p>
                                        <div class="testimonial-author">
                                           <span class="testimonial-author-name">Blessi , Mumbai</span>
@@ -1400,8 +1694,10 @@
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="testimonial-content">
-                                       <p>“Fringilla utade morbi tincidunt augu interdum velit euismo. Nullam consequat
-                                          volutpat donec urna lorem pellentesque.Fringilla amusb morbi tincidunt augue
+                                       <p>“Fringilla utade morbi tincidunt augu interdum velit euismo. Nullam
+                                          consequat
+                                          volutpat donec urna lorem pellentesque.Fringilla amusb morbi
+                                          tincidunt augue
                                           interdum velit euismo.”</p>
                                        <div class="testimonial-author">
                                           <span class="testimonial-author-name">Ferrora Decosta</span>
@@ -1411,8 +1707,10 @@
                                  </div>
                                  <div class="swiper-slide">
                                     <div class="testimonial-content">
-                                       <p>“Fringilla utade morbi tincidunt augu interdum velit euismo. Nullam consequat
-                                          volutpat donec urna lorem pellentesque.Fringilla amusb morbi tincidunt augue
+                                       <p>“Fringilla utade morbi tincidunt augu interdum velit euismo. Nullam
+                                          consequat
+                                          volutpat donec urna lorem pellentesque.Fringilla amusb morbi
+                                          tincidunt augue
                                           interdum velit euismo.”</p>
                                        <div class="testimonial-author">
                                           <span class="testimonial-author-name">Ferrora Decosta</span>
@@ -1481,7 +1779,7 @@
                <div class="row align-items-center">
                   <div class="col-lg-9 col-md-9">
                      <div class="tpsection">
-                        <div class="tpsection-sub-title">
+                        <div class="font-dark mb-20">
                            <span>Get Appointment</span>
                         </div>
                         <h2 class="tpsection-title">Consultation With <br> Our Doctor</h2>
@@ -1504,8 +1802,8 @@
             <div class="row">
                <div class="col-lg-12">
                   <div class="tpsection text-center mb-80">
-                     <div class="blog-sub-title tpsection-sub-title mb-10">
-                        Get Appointment
+                     <div class="font-dark mb-10">
+                        Blogs
                      </div>
                      <h2 class="tpsection-title">Latest From Blogs</h2>
                   </div>
@@ -1635,8 +1933,6 @@
 
    </main>
 
-
-
    <!-- footer-area-start -->
    <footer>
       <div class="footer-area">
@@ -1647,9 +1943,7 @@
                      <div class="footer-widget footer-col-1 mb-70 wow fadeInUp" data-wow-duration="1s"
                         data-wow-delay=".2s">
                         <div class="footer-logo">
-                           <a href="index.html"><img
-                                 src="https://newoaks.s3.us-west-1.amazonaws.com/AutoDev/17785/8c243142-d258-49e5-a3fa-2f953fce9b7a.png"
-                                 alt=""></a>
+                           <a href="index.html"><img src="assets/img/logo/Initials.png" alt=""></a>
                         </div>
                         <div class="footer-content">
                            <div class="footer-info">
@@ -1947,6 +2241,58 @@
          const videoSlider = document.getElementById('videoSlider');
          videoSlider.addEventListener('mouseenter', () => slider.pauseAutoPlay());
          videoSlider.addEventListener('mouseleave', () => slider.resumeAutoPlay());
+      });
+   </script>
+
+   <script>
+      document.addEventListener('DOMContentLoaded', () => {
+         const tabButtons = document.querySelectorAll('.tab-button');
+         const tabPanes = document.querySelectorAll('.tab-pane');
+
+         tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+               // Remove 'active' class from all buttons and panes
+               tabButtons.forEach(btn => btn.classList.remove('active'));
+               tabPanes.forEach(pane => pane.classList.remove('active'));
+
+               // Add 'active' class to the clicked button
+               button.classList.add('active');
+
+               // Add 'active' class to the corresponding pane
+               const targetId = button.getAttribute('data-tab-target');
+               const targetPane = document.getElementById(targetId);
+               if (targetPane) {
+                  targetPane.classList.add('active');
+               }
+            });
+         });
+      });
+   </script>
+
+   <script>
+      // Get the modal element
+      const skinModal = document.getElementById('skinModal');
+
+      // Add an event listener for when the modal is about to be shown
+      skinModal.addEventListener('show.bs.modal', function (event) {
+         // Get the button that triggered the modal
+         const button = event.relatedTarget;
+
+         // Extract info from data-* attributes
+         const skinType = button.getAttribute('data-skin-type');
+         const description = button.getAttribute('data-skin-description');
+         const treatment = button.getAttribute('data-skin-treatment');
+
+         // Update the modal's content
+         const modalTitle = skinModal.querySelector('#skinModalLabel');
+         const modalDescription = skinModal.querySelector('#modalDescription');
+         const modalTreatment = skinModal.querySelector('#modalTreatment');
+         const ctaButton = skinModal.querySelector('#ctaButton');
+
+         modalTitle.textContent = skinType;
+         modalDescription.textContent = description;
+         modalTreatment.textContent = treatment;
+         ctaButton.href = `#`; // You can change this to a specific URL if needed
       });
    </script>
 </body>

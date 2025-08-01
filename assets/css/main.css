@@ -15624,3 +15624,44 @@ body {
 footer {
   background-color: #f1c6b3;
 }
+
+.font-ovrd {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: italic;
+}
+
+.font-dark {
+  color: var(--tp-text-body) !important;
+}
+
+.tp-btn {
+  border: 1px solid var(--tp-border-primary) !important;
+}
+
+.count {
+  font-size: 80px;
+  line-height: 1.1;
+  color: var(--tp-border-primary) !important;
+  margin-bottom: 0;
+}
+.count::after {
+  content: "+";
+  color: var(--tp-border-primary) !important;
+  font-size: 80px;
+}
+.count .odometer-auto-theme {
+  transform: translateY(-10px);
+}
+.happy-client {
+  border: 3px solid var(--tp-text-body) !important;
+}
+
+.about-inner-btn a {
+  background-color: var(--tp-text-body) !important;
+  color: var(--tp-common-white) !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  padding: 10px 30px !important;
+}
