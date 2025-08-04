@@ -11046,13 +11046,13 @@ blockquote cite::before {
   margin-bottom: 0;
 }
 .services-details-feature-title {
-  font-size: 40px;
+  font-size: 30px;
   line-height: 1.1;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px),
   (max-width: 767px) {
   .services-details-feature-title {
-    font-size: 30px;
+    font-size: 16px;
   }
 }
 .services-details-quote {
