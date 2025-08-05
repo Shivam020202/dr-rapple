@@ -15665,3 +15665,6 @@ footer {
   font-size: 16px !important;
   padding: 10px 30px !important;
 }
+.offcanvas-open-btn i {
+  background-color: #ecd9cb !important;
+}
